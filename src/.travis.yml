@@ -1,0 +1,24 @@
+sudo: required
+services:
+  - docker
+
+env:
+  global:
+    - COMMIT=${TRAVIS_COMMIT::8}
+
+script:
+  - |
+    if [ "$TRAVIS_BRANCH" == "master" ]; then
+      docker build -t $DOCKER_REPO -f Dockerfile . 
+    else
+      docker build -t $DOCKER_REPO -f Dockerfile.dev . 
+      docker run $DOCKER_REPO npm run test -- --coverage
+    fi
+
+after_success:
+  - |
+    if [ "$TRAVIS_BRANCH" == "master" ]; then
+      docker login -u "$DOCKER_USER" -p "$DOCKER_PASS"
+      docker push $DOCKER_REPO
+    fi
+
