@@ -15,6 +15,12 @@ export class AppController {
     return this.appService.userServiceHello()
   }
 
+  @Get()
+  health() {
+    logger.log("Inside AppController::hello()")
+    return this.appService.health()
+  }
+
   @Get('error')
   error() {
     logger.log("WRONG URL")

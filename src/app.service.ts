@@ -10,6 +10,10 @@ const userServiceProxy = httpProxy('http://localhost:3001')
 export class AppService {
   constructor(private http: HttpService) {}
 
+  health() {
+    return "API Gateway is working!!!"
+  }
+
   userServiceHello() {
     logger.log("inside userServiceHello")
     return "API Gateway"

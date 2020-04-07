@@ -1,7 +1,6 @@
 import { ProxyServiceMiddleware } from './middleware/proxy-service.middleware';
 import { Module, HttpModule, NestModule, MiddlewareConsumer} from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
-import { JwtModule } from '@nestjs/jwt'
 
 import { UserService } from './middleware/user/user.service'
 import { UserServiceAuthMiddleware } from './middleware/user-service-auth.middleware'
