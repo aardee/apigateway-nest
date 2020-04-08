@@ -14,7 +14,7 @@ export class ProxyServiceMiddleware implements NestMiddleware {
     console.log(req.url)
     console.log(req.originalUrl)
     if (req.url.includes('/test')) {
-      targetUrl = 'http://test-service:3002/'
+      targetUrl = process.env.TEST_SERVICE_URL
     } else {
       console.log(req.url)
       //targetUrl = req.url   // need to exclude this 'htttp://localhost:3000/error' to avoid loop...
