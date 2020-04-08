@@ -8,7 +8,7 @@ const logger = new Logger()
 export class UserService {
     constructor(private httpService: HttpService) {}
     
-    private readonly userServiceUrl = 'http://localhost:3001/auth';
+    private readonly userServiceUrl = process.env.USER_SERVICE_URL + '/auth';
 
     authenticate(request) {
         logger.log("In UserService::authenticate")
