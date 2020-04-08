@@ -5,14 +5,13 @@ import { createProxyMiddleware }  from 'http-proxy-middleware'
 @Injectable()
 export class ProxyServiceMiddleware implements NestMiddleware {
   private getTargetUrl(req) {
-    console.log(req);
     let targetUrl = null
 
     //Handle other routes
     //This can be externalized via YAML config to record src and target URLs
     //Use Consul registered URLs for target microservices
-    console.log(req.url)
-    console.log(req.originalUrl)
+    console.log("URL :: " + req.url)
+    console.log("ORIGINAL URL :: " + req.originalUrl)
     if (req.url.includes('/test')) {
       targetUrl = process.env.TEST_SERVICE_URL
     } else {
@@ -25,14 +24,15 @@ export class ProxyServiceMiddleware implements NestMiddleware {
   }
 
   use(req: any, res: any, next: () => void) {
-    console.log(req.headers['x-apigateway-authorization'])
-
     const targetUrl = this.getTargetUrl(req)
     if (targetUrl) {
       const options = {
         target: targetUrl,
         secure: false,
         changeOrigin: false,
+        onProxyRes: ((proxyRes, req, res) => {
+          console.log("Received response from MS :: " + req.originalUrl)
+        })
       }
 
       createProxyMiddleware(req.originalUrl, options).call(createProxyMiddleware, req, res, next)

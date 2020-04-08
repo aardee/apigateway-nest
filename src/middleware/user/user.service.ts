@@ -12,8 +12,6 @@ export class UserService {
 
     authenticate(request) {
         logger.log("In UserService::authenticate")
-        logger.log(request.headers['authorization'])
-
         return this.authRequest(request).toPromise()
     }
 
@@ -23,6 +21,7 @@ export class UserService {
                 'Authorization': request.headers['authorization'] 
             } 
         } 
+
         return this.httpService.post(this.userServiceUrl, {}, config).
             pipe(
                 map((response) => {

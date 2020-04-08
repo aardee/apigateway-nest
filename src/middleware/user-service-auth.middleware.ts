@@ -18,9 +18,7 @@ export class UserServiceAuthMiddleware implements NestMiddleware {
       let jwt = this.tokenService.generateToken(data)
 
       //Modify request header with the internal JWT Token that include USER details
-      console.log(`token ${jwt['access_token']}`)
       req.headers['x-apigateway-authorization'] = `token ${jwt['access_token']}`
-      console.log(req.headers['x-apigateway-authorization'])
     }).catch((error) => {
       logger.log(error)
     })

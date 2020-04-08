@@ -1,8 +1,6 @@
 import { Controller, Get, Logger } from '@nestjs/common'
 import { AppService } from './app.service'
 
-const logger = new Logger()
-
 @Controller()
 export class AppController {
   constructor(
@@ -11,7 +9,7 @@ export class AppController {
 
   @Get()
   hello() {
-    logger.log("Inside AppController::hello()")
+    console.log("Inside AppController::hello()")
     return this.appService.userServiceHello()
   }
 
@@ -22,7 +20,7 @@ export class AppController {
 
   @Get('error')
   error() {
-    logger.log("WRONG URL")
+    console.log("WRONG URL")
     //Return appropriate error code
     return "ERROR"
   }
