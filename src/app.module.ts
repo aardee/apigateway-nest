@@ -20,6 +20,6 @@ import { TokenService } from './service/token/token.service'
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(UserServiceAuthMiddleware, ProxyServiceMiddleware)
-            .forRoutes("/")
+            .forRoutes("/apis")
   }
 }
