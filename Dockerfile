@@ -1,4 +1,3 @@
-# Build the code
 FROM node:lts-alpine AS builder
 RUN npm i -g @nestjs/cli
 
