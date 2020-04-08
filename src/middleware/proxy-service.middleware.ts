@@ -11,8 +11,10 @@ export class ProxyServiceMiddleware implements NestMiddleware {
     //Handle other routes
     //This can be externalized via YAML config to record src and target URLs
     //Use Consul registered URLs for target microservices
-    if (req.url.includes('/apis/test')) {
-      targetUrl = 'http://localhost:3002/'
+    console.log(req.url)
+    console.log(req.originalUrl)
+    if (req.url.includes('/test')) {
+      targetUrl = 'http://test-service:3002/'
     } else {
       console.log(req.url)
       //targetUrl = req.url   // need to exclude this 'htttp://localhost:3000/error' to avoid loop...
