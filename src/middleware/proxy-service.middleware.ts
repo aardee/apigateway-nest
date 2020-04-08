@@ -25,8 +25,7 @@ export class ProxyServiceMiddleware implements NestMiddleware {
   }
 
   use(req: any, res: any, next: () => void) {
-    console.log(req.headers['authorization'])
-    console.log(req.headers['Authorization'])
+    console.log(req.headers['x-apigateway-authorization'])
 
     const targetUrl = this.getTargetUrl(req)
     if (targetUrl) {

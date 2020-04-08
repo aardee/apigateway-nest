@@ -13,15 +13,14 @@ export class UserServiceAuthMiddleware implements NestMiddleware {
   async use(req: any, res: any, next: () => void) {
     logger.log("User Service Auth Moddleware called...")
     await this.userService.authenticate(req).then((data) => {
-      logger.log(req.headers)
       logger.log(data)
 
       let jwt = this.tokenService.generateToken(data)
 
       //Modify request header with the internal JWT Token that include USER details
-      req.headers['Authorization'] = `token ${jwt['access_token']}`
-      console.log(req.headers['authorization'])
-      console.log(req.headers['Authorization'])  
+      console.log(`token ${jwt['access_token']}`)
+      req.headers['x-apigateway-authorization'] = `token ${jwt['access_token']}`
+      console.log(req.headers['x-apigateway-authorization'])
     }).catch((error) => {
       logger.log(error)
     })
