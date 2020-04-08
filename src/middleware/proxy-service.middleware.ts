@@ -14,7 +14,9 @@ export class ProxyServiceMiddleware implements NestMiddleware {
     if (req.url.includes('/apis/test')) {
       targetUrl = 'http://localhost:3002/'
     } else {
-      targetUrl = 'error'   // need to exclude this 'htttp://localhost:3000/error' to avoid loop...
+      console.log(req.url)
+      //targetUrl = req.url   // need to exclude this 'htttp://localhost:3000/error' to avoid loop...
+      //Need to handle error condition
     }
 
     return targetUrl
@@ -23,12 +25,17 @@ export class ProxyServiceMiddleware implements NestMiddleware {
   use(req: any, res: any, next: () => void) {
     console.log(req.headers['authorization'])
 
-    const options = {
-      target: this.getTargetUrl(req),
-      secure: false,
-      changeOrigin: false,
-    }
+    const targetUrl = this.getTargetUrl(req)
+    if (targetUrl) {
+      const options = {
+        target: targetUrl,
+        secure: false,
+        changeOrigin: false,
+      }
 
-    createProxyMiddleware(req.originalUrl, options).call(createProxyMiddleware, req, res, next)
+      createProxyMiddleware(req.originalUrl, options).call(createProxyMiddleware, req, res, next)
+    } else {
+      next()
+    }
   }
 }

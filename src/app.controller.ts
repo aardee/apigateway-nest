@@ -15,7 +15,7 @@ export class AppController {
     return this.appService.userServiceHello()
   }
 
-  @Get()
+  @Get('health')
   health() {
     logger.log("Inside AppController::hello()")
     return this.appService.health()
