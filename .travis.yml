@@ -3,9 +3,9 @@ services:
   - docker
 
 language: node_js
-node_js
-  - 12
-  - 13
+node_js:
+    - "stable"
+
 env:
   global:
     - COMMIT=${TRAVIS_COMMIT::8}
